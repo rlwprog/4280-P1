@@ -1,0 +1,11 @@
+To build the program type "make" on the command line.
+
+To run the program with a file of your choice, type "./P0 yourfile" where "yourfile" is a file without the exention. ".sp18" will be added as the extension within the program. 
+
+	This will cause the output files to have the names "yourfile.preorder" "yourfile.inorder" "yourfile.postorder"
+
+If you have another file that you'd like to run without the extension ".sp18" then pipe it into the the program upon execution by typing the command: "./P0 < yourfile" 
+
+	This will cause the output files to have the names: "out.preorder" "out.inorder" "out.postorder"
+
+To clean all executables and output files, type "make clean"
