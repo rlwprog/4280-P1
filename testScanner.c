@@ -1,7 +1,7 @@
 //
 //  testScanner.c
 //
-//  Created by Ricky Wilson on 3/19/18.
+//  Created by Ricky Wilson on 10/26/18.
 //  CS 4280
 //  Project 1
 //
@@ -11,7 +11,7 @@
 #include "testScanner.h"
 
 // driver to test the scanner 
-void driver(FILE *fin) {
+void tester(FILE *fin) {
 
 	
 	while (fgets(buffer,sizeof buffer, fin) != NULL) {

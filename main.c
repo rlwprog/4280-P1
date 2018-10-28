@@ -1,7 +1,7 @@
 //
 //  main.c
 //
-//  Created by Ricky Wilson on 2/19/18.
+//  Created by Ricky Wilson on 10/26/18.
 //  CS 4280
 //  Project 1
 //
@@ -21,9 +21,7 @@ int main(int argc, char *argv[]){
 		perror("Error: Too many arguments, run the program P1 with either zero or 1 argument");
 		return 1;
 	}
-	// allocating buffer and strings to handle input fromt he file pointer
-	// char buffer[100];
-	// char *charBuff;
+	
 	char *infile;
 
 	FILE * fp = stdin;
@@ -40,16 +38,8 @@ int main(int argc, char *argv[]){
 
 	} 
 
-	// gets input from input pointer and feeds one string at a time and its length to build a tree
-	// while (fscanf(fp, "%s", buffer) != EOF) {
-		
-	// 	printf("%s", buffer);
-	// }
-	// while (fgets(buffer,sizeof buffer, fp) != NULL) {
-		
-	// 	printf("%s", buffer);
-	// }
-	driver(fp);
+	tester(fp);
+
 	// close the input file
 	fclose(fp);
 	
