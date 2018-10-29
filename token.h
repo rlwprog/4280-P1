@@ -13,8 +13,10 @@
 
 
 
-enum tokenID {IDENT_tk, NUM_tk, KW_tk, OP_tk, EOF_tk};
-
+// enum tokenID {IDENT_tk, NUM_tk, KW_tk, OP_tk, EOF_tk};
+// const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
+// const char *keywordNames[] = {"start", "stop", "iter", "void", "var", "return", "read", "print", "program", "iff", "then", "let"};
+// char opsAndDelimiters[] = {'=', '<', '>', ':', '+', '-', '*', '/', '%', '.', '(', ')', ',', '{', '}', ';', '[', ']'};
 
 typedef struct token
 {

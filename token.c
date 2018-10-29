@@ -11,9 +11,9 @@
 
 #include "token.h"
 
-const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
-const char *keywordNames[] = {"start", "stop", "iter", "void", "var", "return", "read", "print", "program", "iff", "then", "let"};
-const char *opsAndDelimiters[] = {"=", "<", ">", ":", "+", "-", "*", "/", "%", ".", "(", ")", ",", "{", "}", ";", "[", "]"};
+// const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
+// const char *keywordNames[] = {"start", "stop", "iter", "void", "var", "return", "read", "print", "program", "iff", "then", "let"};
+// char opsAndDelimiters[] = {'=', '<', '>', ':', '+', '-', '*', '/', '%', '.', '(', ')', ',', '{', '}', ';', '[', ']'};
 
 
 Token * tokenConstruct(int tokenID, char *tokenName, int line)

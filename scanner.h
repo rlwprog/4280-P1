@@ -9,12 +9,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "token.h"
-
 
 char ch;
-int i;
+int bufferIndex;
+int length;
 
 void filter(char *lineBuffer);
 
-void scanner(char *lineBuffer, int length, int line);
+int scanner(char *lineBuffer, int bufIndex, int line);
+
+int checkIfDigit(char ch);
+
+int checkIfUpperCase(char ch);
+
+int checkIfLowerCase(char ch);
+
+int checkIfSymbol(char ch);
+
+int checkIfWhitespace(char ch);
+
+int checkIFUnderScore(char ch);

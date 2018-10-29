@@ -16,7 +16,6 @@ void tester(FILE *fin) {
 	
 	while (fgets(buffer,sizeof buffer, fin) != NULL) {
 		filter(buffer);
-
 		
 	}
 }
