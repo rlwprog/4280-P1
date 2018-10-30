@@ -20,16 +20,20 @@ void filter(char *lineBuffer);
 
 int scanner(char *lineBuffer, int bufIndex, int line);
 
-int checkIfDigit(char ch);
+int checkIfDigit(int bInt);
 
-int checkIfUpperCase(char ch);
+int checkIfUpperCase(int bInt);
 
-int checkIfLowerCase(char ch);
+int checkIfLowerCase(int bInt);
 
-int checkIfSymbol(char ch);
+int checkIfSymbol(int bInt);
 
-int checkIfWhitespace(char ch);
+int checkIfWhitespace(int bInt);
 
-int checkIfUnderScore(char ch);
+int checkIfUnderScore(int bInt);
 
 int checkIfIdentifierIsKeyword(char *tk);
+
+int checkIfNewLine(int lastChar, int currChar);
+
+int checkIfEOF(int lastChar, int currChar);

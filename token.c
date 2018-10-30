@@ -8,11 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "token.h"
-
-// static enum tokenID {IDENT_tk, NUM_tk, KW_tk, OP_tk, EOF_tk};
-// static const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
 
 Token * tokenConstruct(int tokenID, char *tokenName, int line)
 {
@@ -28,8 +24,12 @@ Token * tokenConstruct(int tokenID, char *tokenName, int line)
 
 void tokenPrint(Token *tok)
 {
-	// printf("%d\n", IDENT_tk);
-	printf("\nToken type: %s\n", tokenNames[tok ->tokenID%1000]);
+	printf("\nToken Type: %s\n", tokenNames[tok ->tokenID%1000]);
+	if(tok -> tokenID == 1004){
+		printf("Token Name: EOF\n");
+
+	} else {
 	printf("Token Name: %s\n", tok -> tokenName);
+	}
 	printf("Line Number: %d\n\n", tok -> line);
 }

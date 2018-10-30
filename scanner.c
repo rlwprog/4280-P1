@@ -20,6 +20,7 @@ void filter(char *lineBuffer) {
 	bufferIndex = 0;
 	char * bufString = lineBuffer;
 	int length = strlen(bufString);
+
 	while(bufferIndex < length){
 		bufferIndex = scanner(bufString, bufferIndex, lineNum);
 
@@ -38,25 +39,28 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 
 	bufInt = lineBuffer[bufIndex];
 	ch = lineBuffer[bufIndex];
-	printf("BufInt: %d\n", bufInt);
 	
 	while (state >= 0 && state < 1000){
-		if (checkIfLowerCase(ch)){
+		if (checkIfLowerCase(bufInt)){
 			state = FATable[state][1];
-		} else if (checkIfUpperCase(ch)){
+		} else if (checkIfUpperCase(bufInt)){
 			state = FATable[state][2];
-		} else if (checkIfUnderScore(ch)){
+		} else if (checkIfUnderScore(bufInt)){
 			state = FATable[state][3];
-		} else if (checkIfDigit(ch)){
+		} else if (checkIfDigit(bufInt)){
 			state = FATable[state][4];
-		} else if (checkIfWhitespace(ch)){
+		} else if (checkIfWhitespace(bufInt)){
 			state = FATable[state][5];
-		} else if (checkIfSymbol(ch)){
+		} else if (checkIfSymbol(bufInt)){
 			state = FATable[state][0];
-		} else {
+		} else if (checkIfEOF(lineBuffer[bufIndex-1], lineBuffer[bufIndex])){
+			state = FATable[state][6];
+		} else if (checkIfNewLine(lineBuffer[bufIndex-1], lineBuffer[bufIndex])){
+			break;
+		} else {	
 			state = -1;
 			fprintf(stderr, "Error: Unknown character: %c\n", ch);
-			// exit(1);
+			exit(1);
 		}
 		
 		if (state >= 0 && state < 1000){
@@ -68,7 +72,6 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 			bufIndex += 1;
 			ch = lineBuffer[bufIndex];
 			bufInt = lineBuffer[bufIndex];
-			printf("BufInt: %d\n", bufInt);
 
 		}
 	}
@@ -100,24 +103,24 @@ int checkIfIdentifierIsKeyword(char *tk){
 	return 1000; 
 }
 
-int checkIfUnderScore(char ch){
-	if (ch == '_'){
+int checkIfUnderScore(int bInt){
+	if (bInt == '_'){
 		return 1;
 	} else {
 		return 0;
 	}
 }
 
-int checkIfDigit(char ch){
-	if (isdigit(ch) != 0){
+int checkIfDigit(int bInt){
+	if (isdigit(bInt) != 0){
 		return 1;
 	} else {
 		return 0;
 	}
 }
 
-int checkIfLowerCase(char ch){
-	if (ch >= 'a' && ch <= 'z'){
+int checkIfLowerCase(int bInt){
+	if (bInt >= 'a' && bInt <= 'z'){
 		return 1;
 	} else {
 		return 0;
@@ -125,28 +128,42 @@ int checkIfLowerCase(char ch){
 
 }
 
-int checkIfUpperCase(char ch){
-	if (ch >= 'A' && ch <= 'Z'){
+int checkIfUpperCase(int bInt){
+	if (bInt >= 'A' && bInt <= 'Z'){
 		return 1;
 	} else {
 		return 0;
 	}
 }
 
-int checkIfWhitespace(char ch){
-	if (ch == ' ' || ch == '\t' || ch == '\n'){
+int checkIfWhitespace(int bInt){
+	if (bInt == ' ' || bInt == '\t' || bInt == '\n' || bInt == 10){
 		return 1;
 	} else {
 		return 0;
 	}
 }
 
-int checkIfSymbol(char ch){
+int checkIfSymbol(int bInt){
 	int i;
 	for (i = 0; i < 18; i++){
-		if(ch == opsAndDelimiters[i]){
+		if(bInt == opsAndDelimiters[i]){
 			return 1;
 		} 
 	} 
 	return 0;
 }
+
+int checkIfEOF(int lastChar, int currChar){
+	if (currChar == 0 && lastChar != 10){
+		return 1;
+	}
+	return 0;
+
+}
+
+int checkIfNewLine(int lastChar, int currChar){
+	if (currChar == 0 && lastChar == 10){
+		return 1;
+	}
+	return 0;}
