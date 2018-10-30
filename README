@@ -1,11 +1,11 @@
 I did option 3. The FSA table is in table.h
-I did not finish this project, the token identifiers aren't assigned to the token constructs and comments are not accounted for. Otherwise, the token structs themselves work fine.
+This project operates under the assumption that comments are between the symbol '$' and they can't go beyond one line.
 
 To build the program type "make" on the command line.
 
 To run the program with a file of your choice, type "./P1 yourfile" where "yourfile" is a file without the exention. ".fs182" will be added as the extension within the program. 
 
-	This will cause the output to stout
+	This will cause the output to stdout
 
 If you have another file that you'd like to run without the extension ".fs182" then pipe it into the the program upon execution by typing the command: "./P0 < yourfile" 
 

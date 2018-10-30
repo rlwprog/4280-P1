@@ -37,3 +37,5 @@ int checkIfIdentifierIsKeyword(char *tk);
 int checkIfNewLine(int lastChar, int currChar);
 
 int checkIfEOF(int lastChar, int currChar);
+
+int checkIfComment(int bInt);

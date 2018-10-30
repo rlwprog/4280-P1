@@ -36,6 +36,7 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 	int tokenIndex = 0;
 	int state = 0;
 	char tmp[2];
+	int comment = 0;
 
 	bufInt = lineBuffer[bufIndex];
 	ch = lineBuffer[bufIndex];
@@ -57,9 +58,26 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 			state = FATable[state][6];
 		} else if (checkIfNewLine(lineBuffer[bufIndex-1], lineBuffer[bufIndex])){
 			break;
+		} else if (checkIfComment(bufInt)){
+			comment = 1;
+			while (comment && !checkIfNewLine(lineBuffer[bufIndex-1], lineBuffer[bufIndex])){
+				bufIndex += 1;
+				bufInt = lineBuffer[bufIndex];
+				if(checkIfComment(bufInt)){
+					comment = 0;
+					bufIndex += 1;
+					ch = lineBuffer[bufIndex];
+				}
+			}
+			if (comment == 1){
+				state = -3;
+				fprintf(stderr, "Error: %d\nEnd of comment not found! \n", state);
+				exit(1);
+			}
+
 		} else {	
 			state = -1;
-			fprintf(stderr, "Error: Unknown character: %c\n", ch);
+			fprintf(stderr, "Error: %d\nUnknown character: %c\n", state, ch);
 			exit(1);
 		}
 		
@@ -72,7 +90,7 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 			bufIndex += 1;
 			ch = lineBuffer[bufIndex];
 			bufInt = lineBuffer[bufIndex];
-
+			// printf("BufInt: %d\n", bufInt);
 		}
 	}
 
@@ -85,8 +103,15 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 		tokenPrint(tok);
 	}
 	if (state == -2){
-		fprintf(stderr, "Error: Can't begin ID with: %c\n", ch);
+		fprintf(stderr, "Error: %d\nCan't begin ID with: %c\n", state, ch);
 		exit(1);
+	}
+
+	if (checkIfEOF(lineBuffer[bufIndex-1], lineBuffer[bufIndex])){
+		Token * tok = NULL;
+		tok = tokenConstruct(1004, tokn, line);
+		tokenPrint(tok);
+
 	}
 
 	return bufIndex;
@@ -166,4 +191,12 @@ int checkIfNewLine(int lastChar, int currChar){
 	if (currChar == 0 && lastChar == 10){
 		return 1;
 	}
-	return 0;}
+	return 0;
+}
+
+int checkIfComment(int bInt){
+	if (bInt == '$'){
+		return 1;
+	}
+	return 0;
+}
