@@ -11,13 +11,6 @@
 #include <string.h>
 #include "scanner.h"
 #include "table.h"
-#include "token.h"
-
-// enum tokenID {IDENT_tk, NUM_tk, KW_tk, OP_tk, EOF_tk};
-// const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
-// const char *keywordNames[] = {"start", "stop", "iter", "void", "var", "return", "read", "print", "program", "iff", "then", "let"};
-char opsAndDelimiters[] = {'=', '<', '>', ':', '+', '-', '*', '/', '%', '.', '(', ')', ',', '{', '}', ';', '[', ']'};
-
 
 int lineNum = 1;
 
@@ -43,15 +36,16 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 	int state = 0;
 	char tmp[2];
 
-
+	bufInt = lineBuffer[bufIndex];
 	ch = lineBuffer[bufIndex];
+	printf("BufInt: %d\n", bufInt);
 	
 	while (state >= 0 && state < 1000){
 		if (checkIfLowerCase(ch)){
 			state = FATable[state][1];
 		} else if (checkIfUpperCase(ch)){
 			state = FATable[state][2];
-		} else if (checkIFUnderScore(ch)){
+		} else if (checkIfUnderScore(ch)){
 			state = FATable[state][3];
 		} else if (checkIfDigit(ch)){
 			state = FATable[state][4];
@@ -61,7 +55,7 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 			state = FATable[state][0];
 		} else {
 			state = -1;
-			// fprintf(stderr, "Error: Unknown character: %c\n", ch);
+			fprintf(stderr, "Error: Unknown character: %c\n", ch);
 			// exit(1);
 		}
 		
@@ -73,12 +67,18 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 			}
 			bufIndex += 1;
 			ch = lineBuffer[bufIndex];
+			bufInt = lineBuffer[bufIndex];
+			printf("BufInt: %d\n", bufInt);
+
 		}
 	}
 
 	if (state >= 1000){
+		if(state == 1000){
+			state = checkIfIdentifierIsKeyword(tokn);
+		}
 		Token * tok = NULL;
-		tok = tokenConstruct(1, tokn, line);
+		tok = tokenConstruct(state, tokn, line);
 		tokenPrint(tok);
 	}
 	if (state == -2){
@@ -90,7 +90,17 @@ int scanner(char *lineBuffer, int bufIndex, int line){
 
 }
 
-int checkIFUnderScore(char ch){
+int checkIfIdentifierIsKeyword(char *tk){
+	int k;
+	for(k = 0; k < 12; k++){
+		if (strcmp(tk, keywordNames[k]) == 0){
+			return 1002;
+		}
+	}
+	return 1000; 
+}
+
+int checkIfUnderScore(char ch){
 	if (ch == '_'){
 		return 1;
 	} else {

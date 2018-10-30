@@ -11,10 +11,8 @@
 
 #include "token.h"
 
-// const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
-// const char *keywordNames[] = {"start", "stop", "iter", "void", "var", "return", "read", "print", "program", "iff", "then", "let"};
-// char opsAndDelimiters[] = {'=', '<', '>', ':', '+', '-', '*', '/', '%', '.', '(', ')', ',', '{', '}', ';', '[', ']'};
-
+// static enum tokenID {IDENT_tk, NUM_tk, KW_tk, OP_tk, EOF_tk};
+// static const char *tokenNames[] = {"Identifier", "Number", "Keyword", "Operator", "EOF"};
 
 Token * tokenConstruct(int tokenID, char *tokenName, int line)
 {
@@ -30,7 +28,8 @@ Token * tokenConstruct(int tokenID, char *tokenName, int line)
 
 void tokenPrint(Token *tok)
 {
-	printf("\nToken ID: %d\n", tok -> tokenID);
+	// printf("%d\n", IDENT_tk);
+	printf("\nToken type: %s\n", tokenNames[tok ->tokenID%1000]);
 	printf("Token Name: %s\n", tok -> tokenName);
 	printf("Line Number: %d\n\n", tok -> line);
 }

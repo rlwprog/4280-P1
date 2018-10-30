@@ -9,7 +9,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "token.h"
 
+int bufInt;
 char ch;
 int bufferIndex;
 int length;
@@ -28,4 +30,6 @@ int checkIfSymbol(char ch);
 
 int checkIfWhitespace(char ch);
 
-int checkIFUnderScore(char ch);
+int checkIfUnderScore(char ch);
+
+int checkIfIdentifierIsKeyword(char *tk);
